@@ -1,15 +1,25 @@
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import React, { FC } from 'react';
 import { colors } from '../../theme/Colors';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import InputText from '../../components/textInputFild/InputText';
 import auth from '@react-native-firebase/auth'
 import fireStore from '@react-native-firebase/firestore'
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/RootStackParamList';
 
-const RegistrationScreen = ({navigation}) => {
+interface RegistrationScreenProps {
+  name: string;
+  email: string;
+  password: string;
+  conformPassword: string;
+}
+type props = NativeStackScreenProps<RootStackParamList, 'registration'>;
 
-  const formik = useFormik({
+const RegistrationScreen:React.FC<props>= ({navigation}) => {
+
+  const formik = useFormik<RegistrationScreenProps>({
     initialValues: {
       name:'',
       email: '',
@@ -51,7 +61,7 @@ const RegistrationScreen = ({navigation}) => {
           values.email = '';
           values.password = '';
           values.conformPassword = '';
-        }catch(error){
+        }catch(error:any){
           if(error.code === "auth/email-already-in-use"){
             Alert.alert("Alert","The email address is already in use by another account.")
           }

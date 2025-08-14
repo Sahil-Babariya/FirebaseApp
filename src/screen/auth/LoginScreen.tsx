@@ -1,5 +1,4 @@
 import {
-  ActivityIndicator,
   Alert,
   StyleSheet,
   Text,
@@ -12,18 +11,19 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import InputText from '../../components/textInputFild/InputText';
 import auth from '@react-native-firebase/auth'
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/RootStackParamList';
 
-// interface FormikYup {
-//   values : {email:string,password:string};
-//   errors : {email:string,password:string};
-//   handleChange : (e: React.ChangeEvent<any>)=> void;
-//   touched : {email:string,password:string};
-//   handleSubmit : (e?: React.FormEvent<HTMLFormElement> | undefined) => void
-// }
+interface LoginScreenProps {
+  email: string;
+  password: string;
+}
 
-const LoginScreen = ({navigation}) => {
+type props = NativeStackScreenProps<RootStackParamList, 'login'>;
 
-  const formik = useFormik({
+const LoginScreen:React.FC<props> = ({navigation}) => {
+
+  const formik = useFormik<LoginScreenProps>({
       initialValues: {
         email: '',
         password: '',
@@ -46,7 +46,7 @@ const LoginScreen = ({navigation}) => {
             console.log("user login successfully");
             values.email = '';
             values.password = '';
-          } catch (error) {
+          } catch (error:any) {
             if(error.code === "auth/invalid-credential"){
               Alert.alert("Alert","email and password invalid")
             }

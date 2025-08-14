@@ -9,12 +9,13 @@ import { ActivityIndicator, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import HomeDrawer from './src/navigation/HomeDrawer';
 import ChatScreen from './src/screen/ChatScreen';
+import { RootStackParamList } from './src/navigation/RootStackParamList';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
 
-  const [user,setUser] = useState(null);
+  const [user,setUser] = useState<object | null>(null);
   const [loader,setLoader] = useState<boolean>(true);
 
   useEffect(()=>{

@@ -6,13 +6,19 @@ import { Images } from '../assets/Images'
 import { colors } from '../theme/Colors'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
+interface User {
+    name: string;
+    email: string;
+    uid: string;
+}
+
 const UserScreen = ({navigation}) => {
 
-    const [users,setUsers] = useState(null);
-    const [id,setId] = useState();
+    const [users,setUsers] = useState<User[]>([]);
+    const [id,setId] = useState<string | null>(null);
 
     useEffect(()=>{
-        const userid = auth().currentUser?.uid;
+        const userid = auth().currentUser?.uid || null;
         console.log("id",userid);
         setId(userid);
         const getUsers = async ()=>{
@@ -30,7 +36,7 @@ const UserScreen = ({navigation}) => {
         <StatusBar barStyle={'dark-content'} />
         <FlatList
             data={users}
-            keyExtractor={(index)=>index}
+            keyExtractor={(item,index)=>index.toString()}
             renderItem={({item})=>(
                 <View style={styles.userListContainer}>
                     <View style={styles.imageContainer}>

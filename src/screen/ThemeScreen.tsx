@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import getRemoteConfig from '@react-native-firebase/remote-config';
 
 const ThemeScreen = () => {
-  const [theme, setTheme] = useState();
+  const [theme, setTheme] = useState<string| null>(null);
   useEffect(() => {
     const appTheme = async () => {
       try {
@@ -23,9 +23,11 @@ const ThemeScreen = () => {
   }, []);
 
   if (!theme) {
-    <View style={styles.loaderContainer}>
-      <ActivityIndicator size={'large'} />
-    </View>;
+    return(
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size={'large'} />
+      </View>
+    )
   }
 
   const checkTheme = theme === "light"

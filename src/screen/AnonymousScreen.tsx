@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect } from 'react'
 import auth from '@react-native-firebase/auth'
 
-const AnonymousScreen = ({navigation}) => {
+const AnonymousScreen = ({navigation}:any) => {
 
     useEffect(()=>{
           const clickButton = async () =>{

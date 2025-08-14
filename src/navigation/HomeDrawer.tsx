@@ -9,8 +9,9 @@ import UserScreen from '../screen/UserScreen';
 import { Text } from 'react-native-gesture-handler';
 import { colors } from '../theme/Colors';
 import CustomDrawer from '../components/customDrawer/CustomDrawer';
+import { HomeDrawerParamList } from './RootStackParamList';
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<HomeDrawerParamList>();
 
 const HomeDrawer = () => {
 

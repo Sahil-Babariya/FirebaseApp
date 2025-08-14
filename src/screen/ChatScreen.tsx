@@ -1,19 +1,23 @@
-import { useRoute } from '@react-navigation/native'
+import { ParamListBase, RouteProp, useRoute } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat'
 import fireStore from '@react-native-firebase/firestore'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Text } from 'react-native-gesture-handler'
+import { RootStackParamList } from '../navigation/RootStackParamList'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-const ChatScreen = ({navigation}) => {
+type props = NativeStackScreenProps<RootStackParamList, 'chat'>;
 
-  const route = useRoute();
+const ChatScreen:React.FC<props> = ({navigation}) => {
+
+  const route = useRoute<RouteProp<RootStackParamList,"chat">>();
   const {userId,sentToUid} = route.params;
   const chatId = [userId,sentToUid].sort().join('_');
   console.log(userId,sentToUid);
 
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState<any[]>([])
   console.log("massages",messages);
 
   useEffect(() => {
@@ -28,7 +32,7 @@ const ChatScreen = ({navigation}) => {
       getAllMsg();
   }, [chatId])
 
-  const onSend = (messagesArray) => {
+  const onSend = (messagesArray : any[]) => {
     console.log(messagesArray);
     const msg = messagesArray[0];
     const userMsg = {
